@@ -1,0 +1,36 @@
+name: MLOps Meeting Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.9"
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        python -m spacy download en_core_web_sm
+
+    - name: Run Automated Tests
+      run: |
+        pip install pytest httpx
+        pytest tests/
+
+    - name: Generate Governance Report
+      run: |
+        python src/monitor.py
+      
+    - name: Build Docker Container
+      run: |
+        docker build . --file Dockerfile --tag meeting-ai:latest

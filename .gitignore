@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Environment Variables
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project Specific
+mlruns/
+reports/
+training_artifacts/
+build_log*.txt
+*.log
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Data (DVC)
+/data/*
+!/data/*.dvc
+!/data/.gitignore
+# Allow generated CSVs if they aren't large, but typically data is ignored
+!/data/dummy_data.xml
